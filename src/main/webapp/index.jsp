@@ -1,64 +1,129 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to My Project</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #e9ecef;
-        }
-        header {
-            background-color: #007bff;
-            color: white;
-            padding: 1rem;
-            text-align: center;
-        }
-        main {
-            padding: 2rem;
-        }
-        footer {
-            background-color: #007bff;
-            color: white;
-            text-align: center;
-            padding: 1rem;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 2rem;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImageHub</title>
+    <link rel="stylesheet" href="css/home-style.css">
 </head>
 <body>
+    <!-- Header with Navigation -->
     <header>
-        <h1>ImageHub</h1>
-    </header>
-    <main>
-        <div class="container">
-            <h2>Welcome!</h2>
-            <p>This is the home page of my project. Please log in or register to continue.</p>
-            <p>
-                <a href="login.jsp">Login</a> | 
-                <a href="registration.jsp">Register</a>
-            </p>
+        <div class="logo">
+            <h1>ImageHub</h1>
         </div>
-    </main>
+        <nav>
+            <ul>
+                <li><a href="index.jsp">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#" id="login-button">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="content">
+        <h2>Welcome to ImageHub</h2>
+        <p>Your place to explore, share, and discover amazing images.</p>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Login</h2>
+            <form id="login-form" action="login" method="post">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Login">
+                </div>
+                <p class="switch-modal">Don't have an account? <a href="#" id="register-link">Register</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="register-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Create an Account</h2>
+            <form id="register-form" action="register" method="post">
+                <div class="form-group">
+                    <label for="new-username">Username</label>
+                    <input type="text" id="new-username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-email">Email</label>
+                    <input type="email" id="new-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">Password</label>
+                    <input type="password" id="new-password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Register">
+                </div>
+                <p class="switch-modal">Already have an account? <a href="#" id="login-link">Login</a></p>
+            </form>
+        </div>
+    </div>
+
     <footer>
-        <p>&copy; 2024 ImageHub By Bilal Ness</p>
+        <p>© 2024 ImageHub By Bilal Ness</p>
     </footer>
+
+    <!-- JavaScript -->
+    <script>
+        const loginButton = document.getElementById('login-button');
+        const loginModal = document.getElementById('login-modal');
+        const registerModal = document.getElementById('register-modal');
+        const registerLink = document.getElementById('register-link');
+        const loginLink = document.getElementById('login-link');
+        const closeButtons = document.querySelectorAll('.close-button');
+
+        // Open Login Modal
+        loginButton.onclick = function() {
+            loginModal.style.display = 'block';
+        }
+
+        // Switch to Register Modal
+        registerLink.onclick = function() {
+            loginModal.style.display = 'none';
+            registerModal.style.display = 'block';
+        }
+
+        // Switch to Login Modal
+        loginLink.onclick = function() {
+            registerModal.style.display = 'none';
+            loginModal.style.display = 'block';
+        }
+
+        // Close Modal
+        closeButtons.forEach(button => {
+            button.onclick = function() {
+                loginModal.style.display = 'none';
+                registerModal.style.display = 'none';
+            }
+        });
+
+        // Close Modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target == loginModal) {
+                loginModal.style.display = 'none';
+            }
+            if (event.target == registerModal) {
+                registerModal.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
